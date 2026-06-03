@@ -23,12 +23,14 @@ class Gladiador {
     }
     method poderDeAtaque()
     method destreza()
-    method defenderse(unAtacante){
-        self.atacar(unAtacante)
+    method contraAtaque(unAtacante){
+        if(vida > 0 and unAtacante.vida() > 0){
+            self.atacar(unAtacante)
+        }
     }
     method recibirAtaque(unValor, unAtacante){
         vida = (vida - unValor).max(0)
-        self.defenderse(unAtacante)
+        self.contraAtaque(unAtacante)
     }
     method crearGrupoCon(unGladiador)
 }
@@ -123,7 +125,7 @@ object coliseo {
         }
     }
     method determinarCampeon(grupo){
-        return grupo.gladiadores().max({g => g.vida()})
+        return grupo.gladiadores().max({g => g.fuerza()})
     }
     method curar(){
         grupos.forEach({grupo =>
